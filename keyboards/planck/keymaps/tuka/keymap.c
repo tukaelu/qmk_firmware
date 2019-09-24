@@ -30,8 +30,7 @@ enum planck_layers {
 
 enum planck_keycodes {
   QWERTY = SAFE_RANGE,
-  TENKEY,
-  BACKLIT
+  TENKEY
 };
 
 #define LOWER MO(_LOWER)
@@ -153,23 +152,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case TENKEY:
       if (record->event.pressed) {
         set_single_persistent_default_layer(_TENKEY);
-      }
-      return false;
-      break;
-    case BACKLIT:
-      if (record->event.pressed) {
-        register_code(KC_RSFT);
-        #ifdef BACKLIGHT_ENABLE
-          backlight_step();
-        #endif
-        #ifdef KEYBOARD_planck_rev5
-          PORTE &= ~(1<<6);
-        #endif
-      } else {
-        unregister_code(KC_RSFT);
-        #ifdef KEYBOARD_planck_rev5
-          PORTE |= (1<<6);
-        #endif
       }
       return false;
       break;
